@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>O Compêndio - Coração de Rubi</title>
     <link rel="stylesheet" href="style.css">
+    <!-- Fontes Medievais -->
     <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&family=Lora:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <!-- Leitor da Planilha Google -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 </head>
 <body>
@@ -16,7 +18,7 @@
         <header class="cabecalho-jornal">
             <div class="jornal-topo">
                 <span class="jornal-edicao">A Gazeta de Yuvalin</span>
-                <span class="jornal-data" id="data-jornal">Carregando data...</span>
+                <span class="jornal-data" id="data-jornal">Buscando data...</span>
                 <span class="jornal-preco">Edição 2 Tibares</span>
             </div>
             <h1>O Compêndio da Guilda</h1>
@@ -26,7 +28,7 @@
 
         <div class="menu-rpg">
             
-            <!-- MECÂNICAS DA MESA (Novo!) -->
+            <!-- MECÂNICAS DA MESA -->
             <details class="botao-pergaminho" open>
                 <summary>
                     <span class="icone-menu">⚙️</span> 
@@ -42,17 +44,16 @@
                         <p>Recurso efêmero concedido por roleplay épico ou alta dramaticidade. As Fagulhas <strong>duram apenas uma cena</strong> e podem ser gastas para:</p>
                         <ul class="regra-lista">
                             <li><strong>Rerrolagem:</strong> Gaste 1 Fagulha para rerrolar qualquer teste.</li>
-                            <li><strong>Fôlego Heróico:</strong> Gaste 1 Fagulha para recuperar PMs (Pontos de Mana).</li>
-                            <li><strong>Ação Épica:</strong> Gaste 2 Fagulhas para realizar uma ação padrão extra no seu turno.</li>
+                            <li><strong>Fôlego Heróico:</strong> Gaste 1 Fagulha para recuperar PMs.</li>
+                            <li><strong>Ação Épica:</strong> Gaste 2 Fagulhas para realizar uma ação padrão extra.</li>
                         </ul>
                     </div>
 
                     <div class="regra-bloco">
-                        <h4 class="regra-titulo">🧪 Selo de Qualidade Ezequias</h4>
-                        <p>Aplicado a itens alquímicos e engenhocas experimentais instáveis. Trazem um risco (e muita diversão) narrativo à mesa:</p>
+                        <h4 class="regra-titulo">🎲 Acertos, Falhas e o Caos</h4>
                         <ul class="regra-lista">
-                            <li><strong>Acertos Críticos:</strong> Causam efeitos mágicos bizarros e exponencialmente ampliados.</li>
-                            <li><strong>Falhas Críticas:</strong> Resultam em explosões aleatórias ou mutações corporais temporárias no usuário.</li>
+                            <li><strong>Selo Ezequias (Itens Instáveis):</strong> Críticos causam efeitos mágicos bizarros e ampliados. Falhas resultam em explosões ou mutações corporais temporárias.</li>
+                            <li><strong>Caos de Nimb:</strong> A cada acúmulo de <strong>5 resultados críticos (20) ou falhas críticas (1)</strong> em uma única cena, o Caos de Nimb desperta. <strong>Role 1d100 imediatamente!</strong></li>
                         </ul>
                     </div>
 
