@@ -129,11 +129,9 @@ buscarDados(URL_COFRE, (dados) => {
     document.getElementById("tabela-cofre").innerHTML = html || "<tr><td colspan='4'>O cofre está vazio.</td></tr>";
 });
 
-// --- FUNÇÃO DE ROLAGEM DO MURAL DE MISSÕES ---
 // --- FUNÇÃO UNIVERSAL DE ROLAGEM DO CARROSSEL ---
 function rolarCarrossel(id, direcao) {
     const carrossel = document.getElementById(id);
     // Pula 320 pixels (tamanho aproximado do card + margem)
     carrossel.scrollBy({ left: direcao * 320, behavior: 'smooth' });
-}
-}
+
