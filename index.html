@@ -75,6 +75,7 @@
             </details>
 
             <!-- MISSÕES -->
+            <!-- MISSÕES -->
             <details class="botao-pergaminho">
                 <summary>
                     <span class="icone-menu">📜</span> 
@@ -85,9 +86,15 @@
                 </summary>
                 <div class="conteudo-interno fundo-madeira">
                     <div class="carrossel-wrapper">
+                        <!-- Botão Esquerda -->
+                        <button class="nav-btn btn-esq" onclick="rolarMural(-1)">&#10094;</button>
+                        
                         <div class="carrossel-missoes" id="quadro-missoes">
                             <p class="carregando">Buscando panfletos...</p>
                         </div>
+                        
+                        <!-- Botão Direita -->
+                        <button class="nav-btn btn-dir" onclick="rolarMural(1)">&#10095;</button>
                     </div>
                 </div>
             </details>
