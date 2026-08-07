@@ -11,18 +11,16 @@ function buscarDados(url, callback) {
         download: true,
         header: true,
         complete: function(results) {
-            // Filtra linhas vazias
             const dadosLimpos = results.data.filter(row => Object.values(row).some(val => val !== ""));
             callback(dadosLimpos);
         }
     });
 }
 
-// 0. CALENDÁRIO (Extraindo a data correta para o Jornal)
+// 0. CALENDÁRIO (Para a Data do Jornal)
 buscarDados(URL_CALENDARIO, (dados) => {
     const elementoData = document.getElementById("data-jornal");
     if (elementoData && dados.length > 0) {
-        // Pega a última linha preenchida na aba do Calendário
         let diaAtual = dados[dados.length - 1];
         elementoData.innerText = `${diaAtual.Dia} de ${diaAtual.Mes}`;
     }
@@ -31,10 +29,7 @@ buscarDados(URL_CALENDARIO, (dados) => {
 // 1. DIÁRIO
 buscarDados(URL_DIARIO, (dados) => {
     let html = "";
-    // Inverte os dados para mostrar a sessão mais nova primeiro
     let dadosInvertidos = dados.reverse(); 
-
-    // Monta o Diário
     dadosInvertidos.forEach(d => {
         html += `
         <div class="diario-post">
@@ -46,7 +41,7 @@ buscarDados(URL_DIARIO, (dados) => {
     document.getElementById("conteudo-diario").innerHTML = html || "<p>Nenhum registro encontrado.</p>";
 });
 
-// 2. MISSÕES (Carrossel de Folhetos)
+// 2. MISSÕES (Carrossel)
 buscarDados(URL_MISSOES, (dados) => {
     let html = "";
     dados.forEach(d => {
@@ -63,17 +58,16 @@ buscarDados(URL_MISSOES, (dados) => {
             </div>
         </div>`;
     });
-    document.getElementById("quadro-missoes").innerHTML = html || "<p>Nenhuma missão no mural.</p>";
+    document.getElementById("quadro-missoes").innerHTML = html || "<p style='color: #eedba5;'>Nenhuma missão no mural.</p>";
 });
 
-// 3. NPCs (Galeria)
+// 3. NPCs (Carrossel)
 buscarDados(URL_NPCS, (dados) => {
     let html = "";
     dados.forEach(d => {
         let imagemUrl = d.Imagem ? d.Imagem : "https://via.placeholder.com/250x300/3d2616/eedba5?text=Rosto+Desconhecido";
         let corRelacao = d.Relacao === "Inimigo" ? "color:#8B0000; border-color:#8B0000; background:rgba(139,0,0,0.1);" : 
                         (d.Relacao === "Aliado" ? "color:#006400; border-color:#006400; background:rgba(0,100,0,0.1);" : "color:#555; border-color:#555;");
-        
         html += `
         <div class="npc-card">
             <div class="npc-foto" style="background-image: url('${imagemUrl}');"></div>
@@ -85,10 +79,10 @@ buscarDados(URL_NPCS, (dados) => {
             </div>
         </div>`;
     });
-    document.getElementById("conteudo-npcs").innerHTML = html || "<p>Nenhum NPC registrado.</p>";
+    document.getElementById("conteudo-npcs").innerHTML = html || "<p style='color: #eedba5;'>Nenhum NPC registrado.</p>";
 });
 
-// 4. LOJAS (Agrupadas por cidade)
+// 4. LOJAS
 buscarDados(URL_LOJAS, (dados) => {
     let cidades = {};
     dados.forEach(d => {
@@ -97,7 +91,6 @@ buscarDados(URL_LOJAS, (dados) => {
         if (!cidades[nomeCidade][d.Nome]) cidades[nomeCidade][d.Nome] = { proprietario: d.Proprietario, itens: [] };
         cidades[nomeCidade][d.Nome].itens.push({ item: d.Item, desc: d.Descricao, preco: d.Preco });
     });
-
     let html = "";
     for (let cidade in cidades) {
         html += `<h3 style="font-family:'MedievalSharp'; color:#8B0000; border-bottom:2px solid; margin-top:30px;">🏰 ${cidade}</h3>`;
@@ -129,9 +122,8 @@ buscarDados(URL_COFRE, (dados) => {
     document.getElementById("tabela-cofre").innerHTML = html || "<tr><td colspan='4'>O cofre está vazio.</td></tr>";
 });
 
-// --- FUNÇÃO UNIVERSAL DE ROLAGEM DO CARROSSEL ---
+// FUNÇÃO DOS CARROSSEIS
 function rolarCarrossel(id, direcao) {
     const carrossel = document.getElementById(id);
-    // Pula 320 pixels (tamanho aproximado do card + margem)
     carrossel.scrollBy({ left: direcao * 320, behavior: 'smooth' });
-
+}
