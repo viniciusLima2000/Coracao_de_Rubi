@@ -94,9 +94,52 @@ body {
 .regra-lista strong { color: #8B0000; }
 
 /* Missões (Carrossel) */
-.carrossel-wrapper { width: 100%; overflow: hidden; }
-.carrossel-missoes { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 20px; padding: 20px 10px; scrollbar-width: none; }
+.carrossel-wrapper { 
+    position: relative; 
+    width: 100%; 
+    display: flex; 
+    align-items: center; 
+}
+
+.carrossel-missoes { 
+    display: flex; 
+    overflow-x: auto; 
+    scroll-snap-type: x mandatory; 
+    gap: 20px; 
+    padding: 20px 40px; /* Adicionado espaço nas laterais para os botões não tamparem os cartazes */
+    scrollbar-width: none; 
+    scroll-behavior: smooth; /* Faz o clique deslizar suavemente */
+    width: 100%;
+}
 .carrossel-missoes::-webkit-scrollbar { display: none; }
+
+/* Design das Setas */
+.nav-btn {
+    position: absolute;
+    background-color: #6b4423;
+    color: #eedba5;
+    border: 2px solid #3d2616;
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    z-index: 10;
+    box-shadow: 2px 2px 8px rgba(0,0,0,0.8);
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.nav-btn:hover {
+    background-color: #8B0000;
+    color: #ffcc00;
+    transform: scale(1.1);
+}
+.btn-esq { left: -10px; }
+.btn-dir { right: -10px; }
+
+/* Folheto */
 .folheto {
     min-width: 280px; max-width: 320px; background-color: #f4ebd8;
     background-image: url('https://www.transparenttextures.com/patterns/parchment.png');
