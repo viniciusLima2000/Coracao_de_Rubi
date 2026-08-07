@@ -128,3 +128,10 @@ buscarDados(URL_COFRE, (dados) => {
     });
     document.getElementById("tabela-cofre").innerHTML = html || "<tr><td colspan='4'>O cofre está vazio.</td></tr>";
 });
+
+// --- FUNÇÃO DE ROLAGEM DO MURAL DE MISSÕES ---
+function rolarMural(direcao) {
+    const mural = document.getElementById("quadro-missoes");
+    // 320 (largura máxima do folheto) + 20 (gap entre eles) = 340px de rolagem
+    mural.scrollBy({ left: direcao * 340, behavior: 'smooth' });
+}
