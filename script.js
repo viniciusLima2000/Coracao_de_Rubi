@@ -4,6 +4,7 @@ const URL_LOJAS = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSFsvchGYHv9_
 const URL_COFRE = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSFsvchGYHv9__zSXKitaVxEwYLgm6yYrEdc6WnnkYLj6oIMq2USYiEu9KR-wF56A/pub?gid=1380957419&single=true&output=csv";
 const URL_DIARIO = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSFsvchGYHv9__zSXKitaVxEwYLgm6yYrEdc6WnnkYLj6oIMq2USYiEu9KR-wF56A/pub?gid=1401896465&single=true&output=csv";
 
+
 function buscarDados(url, callback) {
     Papa.parse(url, {
         download: true,
@@ -110,4 +111,27 @@ buscarDados(URL_COFRE, (dados) => {
         html += `<tr><td>${d.Item}</td><td>${d.Quantidade}</td><td>${d.Valor}</td><td>${d.Portador}</td></tr>`;
     });
     document.getElementById("tabela-cofre").innerHTML = html;
+});
+// 1. DIÁRIO
+buscarDados(URL_DIARIO, (dados) => {
+    let html = "";
+    
+    // Inverte os dados para mostrar a sessão mais nova primeiro
+    let dadosInvertidos = dados.reverse(); 
+
+    // MÁGICA DO JORNAL: Pega a Data de Arton da sessão mais recente!
+    const elementoData = document.getElementById("data-jornal");
+    if (elementoData && dadosInvertidos.length > 0) {
+        elementoData.innerText = dadosInvertidos[0].DataArton || "Data Desconhecida";
+    }
+
+    dadosInvertidos.forEach(d => {
+        html += `
+        <div class="diario-post">
+            <h4 class="diario-titulo">${d.Sessao}</h4>
+            <p class="diario-meta">Data: ${d.DataArton} | Por: ${d.Autor}</p>
+            <div class="diario-texto"><p>${d.Resumo ? d.Resumo.replace(/\n/g, '<br>') : ''}</p></div>
+        </div>`;
+    });
+    document.getElementById("conteudo-diario").innerHTML = html;
 });
