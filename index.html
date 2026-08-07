@@ -3,25 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>O Grimório - Coração de Rubi</title>
+    <title>O Compêndio - Coração de Rubi</title>
     <link rel="stylesheet" href="style.css">
-    <!-- Fontes Medievais Oficiais -->
     <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&family=Lora:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-    <!-- Leitor da Planilha -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 </head>
 <body>
 
     <main class="moldura-madeira">
-        <header class="cabecalho-taverna">
-            <h1>Coração de Rubi</h1>
-            <h2>O Compêndio da Guilda</h2>
+        
+        <!-- CABEÇALHO ESTILO JORNAL -->
+        <header class="cabecalho-jornal">
+            <div class="jornal-topo">
+                <span class="jornal-edicao">A Gazeta de Yuvalin</span>
+                <span class="jornal-data" id="data-jornal">Carregando data...</span>
+                <span class="jornal-preco">Edição 2 Tibares</span>
+            </div>
+            <h1>O Compêndio da Guilda</h1>
+            <h2>Crônicas da Campanha Coração de Rubi</h2>
+            <div class="jornal-linha"></div>
         </header>
 
         <div class="menu-rpg">
             
-            <!-- DIÁRIO -->
+            <!-- MECÂNICAS DA MESA (Novo!) -->
             <details class="botao-pergaminho" open>
+                <summary>
+                    <span class="icone-menu">⚙️</span> 
+                    <div class="texto-menu">
+                        <h3>Mecânicas da Mesa</h3>
+                        <p>Regras Especiais da Campanha</p>
+                    </div>
+                </summary>
+                <div class="conteudo-interno regras-container">
+                    
+                    <div class="regra-bloco">
+                        <h4 class="regra-titulo">✨ Fagulhas de Rubi</h4>
+                        <p>Recurso efêmero concedido por roleplay épico ou alta dramaticidade. As Fagulhas <strong>duram apenas uma cena</strong> e podem ser gastas para:</p>
+                        <ul class="regra-lista">
+                            <li><strong>Rerrolagem:</strong> Gaste 1 Fagulha para rerrolar qualquer teste.</li>
+                            <li><strong>Fôlego Heróico:</strong> Gaste 1 Fagulha para recuperar PMs (Pontos de Mana).</li>
+                            <li><strong>Ação Épica:</strong> Gaste 2 Fagulhas para realizar uma ação padrão extra no seu turno.</li>
+                        </ul>
+                    </div>
+
+                    <div class="regra-bloco">
+                        <h4 class="regra-titulo">🧪 Selo de Qualidade Ezequias</h4>
+                        <p>Aplicado a itens alquímicos e engenhocas experimentais instáveis. Trazem um risco (e muita diversão) narrativo à mesa:</p>
+                        <ul class="regra-lista">
+                            <li><strong>Acertos Críticos:</strong> Causam efeitos mágicos bizarros e exponencialmente ampliados.</li>
+                            <li><strong>Falhas Críticas:</strong> Resultam em explosões aleatórias ou mutações corporais temporárias no usuário.</li>
+                        </ul>
+                    </div>
+
+                </div>
+            </details>
+
+            <!-- DIÁRIO -->
+            <details class="botao-pergaminho">
                 <summary>
                     <span class="icone-menu">📖</span> 
                     <div class="texto-menu">
@@ -34,7 +73,7 @@
                 </div>
             </details>
 
-            <!-- MISSÕES (CARROSSEL DE FOLHETOS) -->
+            <!-- MISSÕES -->
             <details class="botao-pergaminho">
                 <summary>
                     <span class="icone-menu">📜</span> 
@@ -44,7 +83,6 @@
                     </div>
                 </summary>
                 <div class="conteudo-interno fundo-madeira">
-                    <!-- O Carrossel fica aqui -->
                     <div class="carrossel-wrapper">
                         <div class="carrossel-missoes" id="quadro-missoes">
                             <p class="carregando">Buscando panfletos...</p>
