@@ -130,8 +130,10 @@ buscarDados(URL_COFRE, (dados) => {
 });
 
 // --- FUNÇÃO DE ROLAGEM DO MURAL DE MISSÕES ---
-function rolarMural(direcao) {
-    const mural = document.getElementById("quadro-missoes");
-    // 320 (largura máxima do folheto) + 20 (gap entre eles) = 340px de rolagem
-    mural.scrollBy({ left: direcao * 340, behavior: 'smooth' });
+// --- FUNÇÃO UNIVERSAL DE ROLAGEM DO CARROSSEL ---
+function rolarCarrossel(id, direcao) {
+    const carrossel = document.getElementById(id);
+    // Pula 320 pixels (tamanho aproximado do card + margem)
+    carrossel.scrollBy({ left: direcao * 320, behavior: 'smooth' });
+}
 }
