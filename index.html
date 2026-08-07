@@ -137,14 +137,20 @@ layout: null
 
     </main>
 
-    <footer class="rodape-rpg">
-        <a href="/admin/" class="btn-mestre">Acessar Painel do Mestre</a>
+   <footer class="rodape-rpg">
+        <!-- Removida a barra inicial do href -->
+        <a href="admin/" class="btn-mestre">Acessar Painel do Mestre</a>
     </footer>
 
     <script>
       if (window.netlifyIdentity) {
         window.netlifyIdentity.on("init", user => {
-          if (!user) { window.netlifyIdentity.on("login", () => { document.location.href = "/admin/"; }); }
+          if (!user) { 
+            window.netlifyIdentity.on("login", () => { 
+                // Removida a barra inicial do redirecionamento
+                document.location.href = "admin/"; 
+            }); 
+          }
         });
       }
     </script>
