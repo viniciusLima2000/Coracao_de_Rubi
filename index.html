@@ -3,89 +3,103 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Painel do Mestre - Coração de Rubi</title>
+    <title>O Grimório - Coração de Rubi</title>
     <link rel="stylesheet" href="style.css">
-    <!-- Fontes tecnológicas e épicas -->
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Fontes Medievais Oficiais -->
+    <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&family=Lora:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
     <!-- Leitor da Planilha -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 </head>
 <body>
-    
-    <!-- Fundo animado / Imagem de fundo -->
-    <div class="background-tech"></div>
 
-    <header class="hud-header fade-in">
-        <!-- Você pode colocar uma logo redonda de RPG aqui -->
-        <!-- <img src="URL_DA_SUA_IMAGEM.png" alt="Logo" class="hud-logo"> -->
-        <h1>SISTEMA: CORAÇÃO DE RUBI</h1>
-        <h2>[ MODO MESTRE ATIVADO ]</h2>
-    </header>
+    <main class="moldura-madeira">
+        <header class="cabecalho-taverna">
+            <h1>Coração de Rubi</h1>
+            <h2>O Compêndio da Guilda</h2>
+        </header>
 
-    <main class="hud-container slide-up">
+        <div class="menu-rpg">
+            
+            <!-- DIÁRIO -->
+            <details class="botao-pergaminho" open>
+                <summary>
+                    <span class="icone-menu">📖</span> 
+                    <div class="texto-menu">
+                        <h3>O Diário</h3>
+                        <p>Crônicas da Campanha</p>
+                    </div>
+                </summary>
+                <div class="conteudo-interno" id="conteudo-diario">
+                    <p class="carregando">Lendo os pergaminhos...</p>
+                </div>
+            </details>
 
-        <!-- DIÁRIO -->
-        <details class="hud-panel" open>
-            <summary><span class="icon-glow">🎲</span> REGISTROS DE CAMPANHA (DIÁRIO)</summary>
-            <div class="hud-content" id="conteudo-diario">
-                <div class="loading-pulse">Sincronizando banco de dados...</div>
-            </div>
-        </details>
+            <!-- MISSÕES (CARROSSEL DE FOLHETOS) -->
+            <details class="botao-pergaminho">
+                <summary>
+                    <span class="icone-menu">📜</span> 
+                    <div class="texto-menu">
+                        <h3>Quadro de Missões</h3>
+                        <p>Contratos e Recompensas</p>
+                    </div>
+                </summary>
+                <div class="conteudo-interno fundo-madeira">
+                    <!-- O Carrossel fica aqui -->
+                    <div class="carrossel-wrapper">
+                        <div class="carrossel-missoes" id="quadro-missoes">
+                            <p class="carregando">Buscando panfletos...</p>
+                        </div>
+                    </div>
+                </div>
+            </details>
 
-        <!-- CALENDÁRIO -->
-        <details class="hud-panel">
-            <summary><span class="icon-glow">📅</span> CRONOLOGIA DE ARTON (CALENDÁRIO)</summary>
-            <div class="hud-content">
-                <table class="hud-table">
-                    <thead><tr><th>Mês</th><th>Dia</th><th>Evento / Notas</th><th>Feriado</th></tr></thead>
-                    <tbody id="tabela-calendario"></tbody>
-                </table>
-            </div>
-        </details>
+            <!-- NPCs -->
+            <details class="botao-pergaminho">
+                <summary>
+                    <span class="icone-menu">🍻</span> 
+                    <div class="texto-menu">
+                        <h3>Conhecidos</h3>
+                        <p>Aliados e Inimigos</p>
+                    </div>
+                </summary>
+                <div class="conteudo-interno grid-npcs" id="conteudo-npcs">
+                    <p class="carregando">Relembrando rostos...</p>
+                </div>
+            </details>
 
-        <!-- MISSÕES -->
-        <details class="hud-panel">
-            <summary><span class="icon-glow">📜</span> PROTOCOLOS ATIVOS (MISSÕES)</summary>
-            <div class="hud-content">
-                <table class="hud-table">
-                    <thead><tr><th>Missão</th><th>Solicitante</th><th>Local</th><th>Perigo</th><th>Recompensa</th><th>Status</th></tr></thead>
-                    <tbody id="tabela-missoes"></tbody>
-                </table>
-            </div>
-        </details>
+            <!-- LOJAS -->
+            <details class="botao-pergaminho">
+                <summary>
+                    <span class="icone-menu">⚖️</span> 
+                    <div class="texto-menu">
+                        <h3>Comércio</h3>
+                        <p>Lojas, Tavernas e Itens</p>
+                    </div>
+                </summary>
+                <div class="conteudo-interno" id="conteudo-lojas">
+                    <p class="carregando">Verificando estoques...</p>
+                </div>
+            </details>
 
-        <!-- NPCs -->
-        <details class="hud-panel">
-            <summary><span class="icon-glow">👤</span> BANCO DE DADOS DE IDENTIDADES (NPCs)</summary>
-            <div class="hud-content hud-grid" id="conteudo-npcs">
-                <div class="loading-pulse">Buscando identidades...</div>
-            </div>
-        </details>
+            <!-- COFRE -->
+            <details class="botao-pergaminho">
+                <summary>
+                    <span class="icone-menu">💰</span> 
+                    <div class="texto-menu">
+                        <h3>Cofre da Guilda</h3>
+                        <p>Tesouros e Pertences</p>
+                    </div>
+                </summary>
+                <div class="conteudo-interno wrapper-tabela">
+                    <table class="tabela-medieval">
+                        <thead><tr><th>Item</th><th>Quantidade</th><th>Valor</th><th>Portador</th></tr></thead>
+                        <tbody id="tabela-cofre"></tbody>
+                    </table>
+                </div>
+            </details>
 
-        <!-- LOJAS -->
-        <details class="hud-panel">
-            <summary><span class="icon-glow">🏪</span> REDE COMERCIAL (LOJAS)</summary>
-            <div class="hud-content" id="conteudo-lojas">
-                <div class="loading-pulse">Carregando catálogo...</div>
-            </div>
-        </details>
-
-        <!-- COFRE -->
-        <details class="hud-panel">
-            <summary><span class="icon-glow">💰</span> INVENTÁRIO COLETIVO (COFRE)</summary>
-            <div class="hud-content">
-                <table class="hud-table">
-                    <thead><tr><th>Item</th><th>Quantidade</th><th>Valor</th><th>Portador</th></tr></thead>
-                    <tbody id="tabela-cofre"></tbody>
-                </table>
-            </div>
-        </details>
-
+        </div>
     </main>
-
-    <footer class="hud-footer fade-in">
-        <p>Terminal conectado à Planilha Neural Google. Atualização em tempo real.</p>
-    </footer>
 
     <script src="script.js"></script>
 </body>
