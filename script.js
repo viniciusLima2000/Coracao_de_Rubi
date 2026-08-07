@@ -1,25 +1,37 @@
+// Links da sua Planilha do Google
 const URL_MISSOES = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSFsvchGYHv9__zSXKitaVxEwYLgm6yYrEdc6WnnkYLj6oIMq2USYiEu9KR-wF56A/pub?gid=1467808186&single=true&output=csv";
 const URL_NPCS = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSFsvchGYHv9__zSXKitaVxEwYLgm6yYrEdc6WnnkYLj6oIMq2USYiEu9KR-wF56A/pub?gid=1594591693&single=true&output=csv";
 const URL_LOJAS = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSFsvchGYHv9__zSXKitaVxEwYLgm6yYrEdc6WnnkYLj6oIMq2USYiEu9KR-wF56A/pub?gid=795858506&single=true&output=csv";
 const URL_COFRE = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSFsvchGYHv9__zSXKitaVxEwYLgm6yYrEdc6WnnkYLj6oIMq2USYiEu9KR-wF56A/pub?gid=1380957419&single=true&output=csv";
 const URL_DIARIO = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSFsvchGYHv9__zSXKitaVxEwYLgm6yYrEdc6WnnkYLj6oIMq2USYiEu9KR-wF56A/pub?gid=1401896465&single=true&output=csv";
 
-
 function buscarDados(url, callback) {
     Papa.parse(url, {
         download: true,
         header: true,
         complete: function(results) {
+            // Filtra linhas vazias
             const dadosLimpos = results.data.filter(row => Object.values(row).some(val => val !== ""));
             callback(dadosLimpos);
         }
     });
 }
 
-// 1. DIÁRIO
+// 1. DIÁRIO (E Extração da Data para o Jornal)
 buscarDados(URL_DIARIO, (dados) => {
     let html = "";
-    dados.reverse().forEach(d => {
+    
+    // Inverte os dados para mostrar a sessão mais nova primeiro
+    let dadosInvertidos = dados.reverse(); 
+
+    // Extrai a Data de Arton da sessão mais recente para colocar no cabeçalho do Jornal
+    const elementoData = document.getElementById("data-jornal");
+    if (elementoData && dadosInvertidos.length > 0) {
+        elementoData.innerText = dadosInvertidos[0].DataArton || "Data Desconhecida";
+    }
+
+    // Monta o Diário
+    dadosInvertidos.forEach(d => {
         html += `
         <div class="diario-post">
             <h4 class="diario-titulo">${d.Sessao}</h4>
@@ -27,10 +39,10 @@ buscarDados(URL_DIARIO, (dados) => {
             <div class="diario-texto"><p>${d.Resumo ? d.Resumo.replace(/\n/g, '<br>') : ''}</p></div>
         </div>`;
     });
-    document.getElementById("conteudo-diario").innerHTML = html;
+    document.getElementById("conteudo-diario").innerHTML = html || "<p>Nenhum registro encontrado.</p>";
 });
 
-// 2. MISSÕES (O Carrossel de Folhetos)
+// 2. MISSÕES (Carrossel de Folhetos)
 buscarDados(URL_MISSOES, (dados) => {
     let html = "";
     dados.forEach(d => {
@@ -47,10 +59,10 @@ buscarDados(URL_MISSOES, (dados) => {
             </div>
         </div>`;
     });
-    document.getElementById("quadro-missoes").innerHTML = html;
+    document.getElementById("quadro-missoes").innerHTML = html || "<p>Nenhuma missão no mural.</p>";
 });
 
-// 3. NPCs
+// 3. NPCs (Galeria)
 buscarDados(URL_NPCS, (dados) => {
     let html = "";
     dados.forEach(d => {
@@ -69,7 +81,7 @@ buscarDados(URL_NPCS, (dados) => {
             </div>
         </div>`;
     });
-    document.getElementById("conteudo-npcs").innerHTML = html;
+    document.getElementById("conteudo-npcs").innerHTML = html || "<p>Nenhum NPC registrado.</p>";
 });
 
 // 4. LOJAS (Agrupadas por cidade)
@@ -101,7 +113,7 @@ buscarDados(URL_LOJAS, (dados) => {
             html += `</tbody></table></div></div>`;
         }
     }
-    document.getElementById("conteudo-lojas").innerHTML = html;
+    document.getElementById("conteudo-lojas").innerHTML = html || "<p>Nenhuma loja encontrada.</p>";
 });
 
 // 5. COFRE
@@ -110,28 +122,5 @@ buscarDados(URL_COFRE, (dados) => {
     dados.forEach(d => {
         html += `<tr><td>${d.Item}</td><td>${d.Quantidade}</td><td>${d.Valor}</td><td>${d.Portador}</td></tr>`;
     });
-    document.getElementById("tabela-cofre").innerHTML = html;
-});
-// 1. DIÁRIO
-buscarDados(URL_DIARIO, (dados) => {
-    let html = "";
-    
-    // Inverte os dados para mostrar a sessão mais nova primeiro
-    let dadosInvertidos = dados.reverse(); 
-
-    // MÁGICA DO JORNAL: Pega a Data de Arton da sessão mais recente!
-    const elementoData = document.getElementById("data-jornal");
-    if (elementoData && dadosInvertidos.length > 0) {
-        elementoData.innerText = dadosInvertidos[0].DataArton || "Data Desconhecida";
-    }
-
-    dadosInvertidos.forEach(d => {
-        html += `
-        <div class="diario-post">
-            <h4 class="diario-titulo">${d.Sessao}</h4>
-            <p class="diario-meta">Data: ${d.DataArton} | Por: ${d.Autor}</p>
-            <div class="diario-texto"><p>${d.Resumo ? d.Resumo.replace(/\n/g, '<br>') : ''}</p></div>
-        </div>`;
-    });
-    document.getElementById("conteudo-diario").innerHTML = html;
+    document.getElementById("tabela-cofre").innerHTML = html || "<tr><td colspan='4'>O cofre está vazio.</td></tr>";
 });
