@@ -1,0 +1,91 @@
+backend:
+  name: github
+  repo: viniciusLima2000/Coracao_de_Rubi
+  branch: main
+
+media_folder: "assets/img"
+public_folder: "/assets/img"
+
+collections:
+  - name: "diario"
+    label: "🎲 Diário de Campanha"
+    folder: "_data/diario"
+    create: true
+    extension: "json"
+    format: "json"
+    fields:
+      - {label: "Sessão", name: "sessao", widget: "string"}
+      - {label: "Data (Mesa)", name: "datareal", widget: "date", format: "DD/MM/YYYY"}
+      - {label: "Data (Arton)", name: "dataarton", widget: "string"}
+      - {label: "Autor", name: "autor", widget: "string"}
+      - {label: "Resumo", name: "resumo", widget: "markdown"}
+
+  - name: "calendario"
+    label: "📅 Calendário de Arton"
+    folder: "_data/calendario"
+    create: true
+    extension: "json"
+    format: "json"
+    fields:
+      - {label: "Mês", name: "mes", widget: "string"}
+      - {label: "Dia", name: "dia", widget: "number"}
+      - {label: "Evento / Notas", name: "evento", widget: "string"}
+      - {label: "Feriado", name: "feriado", widget: "boolean", default: false}
+
+  - name: "cofre"
+    label: "💰 Cofre da Guilda"
+    folder: "_data/cofre"
+    create: true
+    extension: "json"
+    format: "json"
+    fields:
+      - {label: "Item", name: "item", widget: "string"}
+      - {label: "Quantidade", name: "quantidade", widget: "number"}
+      - {label: "Valor", name: "valor", widget: "string", required: false}
+      - {label: "Portador", name: "portador", widget: "string"}
+
+  - name: "missoes"
+    label: "📜 Mural de Missões"
+    folder: "_data/missoes"
+    create: true
+    extension: "json"
+    format: "json"
+    fields:
+      - {label: "Título", name: "titulo", widget: "string"}
+      - {label: "Local", name: "local", widget: "string"}
+      - {label: "Solicitante", name: "solicitante", widget: "string"}
+      - {label: "Perigo", name: "perigo", widget: "string"}
+      - {label: "Recompensa", name: "recompensa", widget: "string"}
+      - {label: "Status", name: "status", widget: "select", options: ["Disponível", "Em Andamento", "Concluída"]}
+
+  - name: "npcs"
+    label: "👤 Galeria de NPCs"
+    folder: "_data/npcs"
+    create: true
+    extension: "json"
+    format: "json"
+    fields:
+      - {label: "Foto do NPC", name: "imagem", widget: "image", required: false}
+      - {label: "Nome", name: "nome", widget: "string"}
+      - {label: "Localização", name: "localizacao", widget: "string"}
+      - {label: "Ocupação", name: "ocupacao", widget: "string"}
+      - {label: "Relação", name: "relacao", widget: "select", options: ["Aliado", "Neutro", "Inimigo"]}
+
+  - name: "lojas"
+    label: "🏪 Lojas e Tavernas"
+    folder: "_data/lojas"
+    create: true
+    extension: "json"
+    format: "json"
+    fields:
+      - {label: "Logo da Loja", name: "logo", widget: "image", required: false}
+      - {label: "Nome da Loja", name: "nome", widget: "string"}
+      - {label: "Cidade", name: "cidade", widget: "string", default: "Yuvalin"}
+      - {label: "Proprietário", name: "proprietario", widget: "string"}
+      - label: "Catálogo"
+        name: "catalogo"
+        widget: "list"
+        fields:
+          - {label: "Item", name: "item", widget: "string"}
+          - {label: "Descrição", name: "descricao", widget: "string"}
+          - {label: "Preço", name: "preco", widget: "string"}
