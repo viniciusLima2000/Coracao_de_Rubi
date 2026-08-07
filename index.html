@@ -1,0 +1,152 @@
+---
+layout: null
+---
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coração de Rubi - Hub da Campanha</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Lora:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+</head>
+<body>
+    <header class="cabecalho-rpg">
+        <h1>Coração de Rubi</h1>
+        <h2>Grimório da Campanha</h2>
+    </header>
+
+    <main class="papiro-container">
+
+        <!-- DIÁRIO -->
+        <details class="topico-rpg" open>
+            <summary>Diário de Campanha</summary>
+            <div class="conteudo-topico">
+                {% for entry_hash in site.data.diario %}
+                {% assign d = entry_hash[1] %}
+                <div class="diario-post">
+                    <h4 class="diario-titulo">{{ d.sessao }}</h4>
+                    <p class="diario-meta">Arton: {{ d.dataarton }} | Escrito por: {{ d.autor }}</p>
+                    <div class="diario-texto">{{ d.resumo | markdownify }}</div>
+                </div>
+                {% endfor %}
+            </div>
+        </details>
+
+        <!-- CALENDÁRIO -->
+        <details class="topico-rpg">
+            <summary>Calendário de Arton</summary>
+            <div class="conteudo-topico">
+                <table class="tabela-rpg">
+                    <thead><tr><th>Mês</th><th>Dia</th><th>Evento / Notas</th><th>Feriado</th></tr></thead>
+                    <tbody>
+                        {% for entry_hash in site.data.calendario %}
+                        {% assign c = entry_hash[1] %}
+                        <tr><td>{{ c.mes }}</td><td>{{ c.dia }}</td><td>{{ c.evento }}</td><td>{% if c.feriado %}Sim{% else %}Não{% endif %}</td></tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </details>
+
+        <!-- MISSÕES -->
+        <details class="topico-rpg">
+            <summary>Mural de Missões</summary>
+            <div class="conteudo-topico">
+                <table class="tabela-rpg">
+                    <thead><tr><th>Missão</th><th>Solicitante</th><th>Local</th><th>Perigo</th><th>Recompensa</th><th>Status</th></tr></thead>
+                    <tbody>
+                        {% for entry_hash in site.data.missoes %}
+                        {% assign m = entry_hash[1] %}
+                        <tr><td>{{ m.titulo }}</td><td>{{ m.solicitante }}</td><td>{{ m.local }}</td><td>{{ m.perigo }}</td><td>{{ m.recompensa }}</td><td><strong>{{ m.status }}</strong></td></tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </details>
+
+        <!-- NPCs -->
+        <details class="topico-rpg">
+            <summary>Galeria de NPCs</summary>
+            <div class="conteudo-topico npc-grid">
+                {% for entry_hash in site.data.npcs %}
+                {% assign npc = entry_hash[1] %}
+                <div class="npc-card">
+                    <div class="npc-foto" style="background-image: url('{{ npc.imagem | default: "assets/img/default-npc.png" }}');"></div>
+                    <div class="npc-info">
+                        <h4>{{ npc.nome }}</h4>
+                        <p><strong>Ocupação:</strong> {{ npc.ocupacao }}</p>
+                        <p><strong>Local:</strong> {{ npc.localizacao }}</p>
+                        <p><strong>Relação:</strong> <span class="relacao {{ npc.relacao | downcase }}">{{ npc.relacao }}</span></p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </details>
+
+        <!-- LOJAS (Agrupadas por Cidade) -->
+        <details class="topico-rpg">
+            <summary>Lojas e Tavernas</summary>
+            <div class="conteudo-topico">
+                {% assign cidades = site.data.lojas | map: "1" | map: "cidade" | uniq | sort %}
+                {% for cidade in cidades %}
+                <h3 class="cidade-titulo">🏰 {{ cidade }}</h3>
+                
+                {% for entry_hash in site.data.lojas %}
+                {% assign loja = entry_hash[1] %}
+                {% if loja.cidade == cidade %}
+                <div class="loja-card">
+                    <div class="loja-header">
+                        {% if loja.logo %}<img src="{{ loja.logo }}" class="loja-logo">{% endif %}
+                        <div class="loja-titulo">
+                            <h4>{{ loja.nome }}</h4>
+                            <p>Proprietário: {{ loja.proprietario }}</p>
+                        </div>
+                    </div>
+                    <table class="tabela-rpg">
+                        <thead><tr><th>Item/Serviço</th><th>Descrição</th><th>Preço</th></tr></thead>
+                        <tbody>
+                            {% for prod in loja.catalogo %}
+                            <tr><td><strong>{{ prod.item }}</strong></td><td>{{ prod.descricao }}</td><td>{{ prod.preco }}</td></tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% endif %}
+                {% endfor %}
+                {% endfor %}
+            </div>
+        </details>
+
+        <!-- COFRE -->
+        <details class="topico-rpg">
+            <summary>Cofre da Guilda</summary>
+            <div class="conteudo-topico">
+                <table class="tabela-rpg">
+                    <thead><tr><th>Item</th><th>Quantidade</th><th>Valor</th><th>Portador</th></tr></thead>
+                    <tbody>
+                        {% for entry_hash in site.data.cofre %}
+                        {% assign cofre = entry_hash[1] %}
+                        <tr><td>{{ cofre.item }}</td><td>{{ cofre.quantidade }}</td><td>{{ cofre.valor }}</td><td>{{ cofre.portador }}</td></tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </details>
+
+    </main>
+
+    <footer class="rodape-rpg">
+        <a href="/admin/" class="btn-mestre">Acessar Painel do Mestre</a>
+    </footer>
+
+    <script>
+      if (window.netlifyIdentity) {
+        window.netlifyIdentity.on("init", user => {
+          if (!user) { window.netlifyIdentity.on("login", () => { document.location.href = "/admin/"; }); }
+        });
+      }
+    </script>
+</body>
+</html>
