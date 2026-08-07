@@ -1,7 +1,9 @@
 backend:
-  name: github
-  repo: viniciusLima2000/Coracao_de_Rubi
+  name: git-gateway
   branch: main
+
+media_folder: "assets/img"
+public_folder: "/assets/img"
 
 media_folder: "assets/img"
 public_folder: "/assets/img"
