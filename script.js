@@ -4,6 +4,7 @@ const URL_NPCS = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSFsvchGYHv9__
 const URL_LOJAS = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSFsvchGYHv9__zSXKitaVxEwYLgm6yYrEdc6WnnkYLj6oIMq2USYiEu9KR-wF56A/pub?gid=795858506&single=true&output=csv";
 const URL_COFRE = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSFsvchGYHv9__zSXKitaVxEwYLgm6yYrEdc6WnnkYLj6oIMq2USYiEu9KR-wF56A/pub?gid=1380957419&single=true&output=csv";
 const URL_DIARIO = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSFsvchGYHv9__zSXKitaVxEwYLgm6yYrEdc6WnnkYLj6oIMq2USYiEu9KR-wF56A/pub?gid=1401896465&single=true&output=csv";
+const URL_CALENDARIO = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSFsvchGYHv9__zSXKitaVxEwYLgm6yYrEdc6WnnkYLj6oIMq2USYiEu9KR-wF56A/pub?gid=1883712087&single=true&output=csv";
 
 function buscarDados(url, callback) {
     Papa.parse(url, {
@@ -17,18 +18,21 @@ function buscarDados(url, callback) {
     });
 }
 
-// 1. DIÁRIO (E Extração da Data para o Jornal)
+// 0. CALENDÁRIO (Extraindo a data correta para o Jornal)
+buscarDados(URL_CALENDARIO, (dados) => {
+    const elementoData = document.getElementById("data-jornal");
+    if (elementoData && dados.length > 0) {
+        // Pega a última linha preenchida na aba do Calendário
+        let diaAtual = dados[dados.length - 1];
+        elementoData.innerText = `${diaAtual.Dia} de ${diaAtual.Mes}`;
+    }
+});
+
+// 1. DIÁRIO
 buscarDados(URL_DIARIO, (dados) => {
     let html = "";
-    
     // Inverte os dados para mostrar a sessão mais nova primeiro
     let dadosInvertidos = dados.reverse(); 
-
-    // Extrai a Data de Arton da sessão mais recente para colocar no cabeçalho do Jornal
-    const elementoData = document.getElementById("data-jornal");
-    if (elementoData && dadosInvertidos.length > 0) {
-        elementoData.innerText = dadosInvertidos[0].DataArton || "Data Desconhecida";
-    }
 
     // Monta o Diário
     dadosInvertidos.forEach(d => {
